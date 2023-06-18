@@ -31,7 +31,10 @@
        2) On your terminal , use ``` cd [REPO]/client ``` to change current directory to client folder , and run ``` npm run dev ``` . If the browser won't open automaitcally , please enter this link : ```http://localhost:3000```.
        3) Pick an image from your laptop and enjoy 💐💐💐💐
        
-   
+ ## Screenshots demo 
+ 
+ ![image](https://github.com/GiaThuanKaren/Image_retrival/assets/86192249/e192535a-388f-4d06-a8b3-9fca7bc010b1)
+
         
         
 
