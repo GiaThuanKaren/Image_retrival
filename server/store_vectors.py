@@ -40,7 +40,7 @@ def extract_vector(model, image_path):
 
 # Dinh nghia thu muc data
 
-data_folder = "/content/images_original"
+data_folder = "./datasets/images_original"
 
 # Khoi tao model
 model = get_extract_model()
