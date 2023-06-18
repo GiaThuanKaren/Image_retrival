@@ -1,6 +1,6 @@
 import os
 import io
-from flask import Flask,request
+from flask import Flask,request,Response
 from PIL import Image
 from search_image import get_extract_model,extract_vector
 import pickle
@@ -8,6 +8,7 @@ from pathlib import Path
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+from flask import jsonify,json
 script_location = Path(__file__).absolute().parent
 
 app = Flask(__name__)
@@ -26,28 +27,39 @@ def upload_file():
    K = 16
    ids = np.argsort(distance)[:K]
    nearest_image = [(paths[id], distance[id]) for id in ids]
+   for i in nearest_image:
+       print(i.__class__)
+       
+           
    # axes = []
-   grid_size = int(math.sqrt(K))
-   fig = plt.figure(figsize=(10,5))
+   # grid_size = int(math.sqrt(K))
+   # fig = plt.figure(figsize=(10,5))
    print(nearest_image)
-   axes = []
-   for id in range(K):
-      draw_image = nearest_image[id]
-      axes.append(fig.add_subplot(grid_size, grid_size, id+1))
+   # axes = []
+   # for id in range(K):
+   #    draw_image = nearest_image[id]
+   #    axes.append(fig.add_subplot(grid_size, grid_size, id+1))
       
-      axes[-1].set_title(draw_image[1])
-      plt.imshow(Image.open(draw_image[0]))
+   #    axes[-1].set_title(draw_image[1])
+   #    plt.imshow(Image.open(draw_image[0]))
 
-   fig.tight_layout()
-   plt.show()
+   # fig.tight_layout()
+   # plt.show()
 
     # Example: Resize the image
-   resized_image = image.resize((800, 600))
+   # resized_image = image.resize((800, 600))
    
-    # Example: Save the processed image
-   resized_image.save('output.jpg')
+   #  # Example: Save the processed image
+   # resized_image.save('output.jpg')
     
-   return {'message': 'Image processed and saved.'}
+   # return jsonify(nearest_image)
+   # response = app.response_class(
+   #      response=json.dumps(nearest_image),
+   #      status=200,
+   #      mimetype='application/json'
+   #  )
+   serialized_list = [(path, float(value)) for path, value in nearest_image]
+   return jsonify(serialized_list)
 
 if __name__ == "__main__":
     app.config['DEBUG'] = True
